@@ -55,11 +55,15 @@ public class TUriParse {
      */
     public static Uri getTempUri(Context context) {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        File file = new File(Environment.getExternalStorageDirectory(), "/images/" + timeStamp + ".jpg");
+//        File file = new File(Environment.getExternalStorageDirectory(), "/images/" + timeStamp + ".jpg");
+        File fileEx = context.getExternalFilesDir(null);
+        File file = new File(fileEx.getAbsolutePath() + "/images/" + timeStamp + ".jpg");
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        return getUriForFile(context, file);
+        Uri imageUri = getUriForFile(context, file);
+//        Uri imageUri = Uri.fromFile(file);
+        return imageUri;
     }
 
     /**
